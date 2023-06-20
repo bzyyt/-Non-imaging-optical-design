@@ -1,0 +1,23 @@
+H=3000;(*高度*)
+R=1000;(*接收面半径*)
+P0={0,20,0};(*P0位置*)
+n=5000;(*段数*)
+dx=0.01;
+Q[i_]:=R*Sqrt[i/n];(*Q点的位置*)
+theta[i_]:=ArcSin[Sqrt[i/n]];
+Ty[k_,f_,alpha_,phi_]:=(k^2-f^2)/(2 k-2 f*Cos[phi])*{Cos[phi+alpha],Sin[phi+alpha],0};
+(*椭圆的方程*)
+P={P0};(*P是所求的流线的点集，初始为P0*)
+Function[i,
+Qi1=Q[i-1];
+fi=N[Norm[{Qi1,-H}]];
+k=N[Norm[P[[-1]]]+Norm[{Qi1,-H,0}-P[[-1]]]];
+betai1=N[ArcTan[Qi1/H]];
+alpha=N[3 Pi/2+betai1];
+phi1=N[Pi-theta[i]-betai1];
+phi2=N[Pi-theta[i-1]-betai1];
+AppendTo[P,Table[Ty[k,fi,alpha,phi],{phi,phi2,phi1,-dx}]];
+(*AppendTo[P,Ty[k,fi,alpha,phi1,Qi1]];*)
+P=Partition[Flatten[P],3]]/@Range[n];
+Export[NotebookDirectory[]<>"out.txt",P,"Table"];
+

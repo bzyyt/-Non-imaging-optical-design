@@ -1,0 +1,23 @@
+H = -3000;(*接收面的高度*)
+yP0 = 30;
+r = 1000;(*接收面的半径*)
+num = 1000000;(*组数*)
+p = {N[{yP0*Tan[ArcSin[Sqrt[1/num]]],yP0,0}]};(*P0的初始位置*)
+dx=1;(*初始步长*)
+For[
+i = 1,
+i<num,
+i=i+dx,(*这里应该用function配合map的，但是我当时写的时候不会这个，就只能用for去做*)
+q={r*Sqrt[i/num],H};(*求出Q点*)
+pp =p[[-1,{1,2}]];(*提取出P点*)
+theta = ArcSin[Sqrt[(i+dx)/num]];
+v = N[{Sin[theta],Cos[theta]}];
+n =N[Normalize[ Normalize[-pp]+Normalize[q-pp]]];
+AppendTo[p,AppendTo[((pp.n)/(v.n))*v,0]];
+If[i>=100,dx=10];If[i>=1000,dx=100];If[i>=10000,dx=1000]
+];
+Export[NotebookDirectory[]<>"out0x02.txt",p,"Table"];
+\:6B63\:5728\:8BA1\:7B97In[16]:= Set::write: 30.0258 {0.0447214,0.998999} 中的标签 Times 被保护.
+\:6B63\:5728\:8BA1\:7B97In[16]:= Set::write: 30.0363 {0.0547723,0.998499} 中的标签 Times 被保护.
+\:6B63\:5728\:8BA1\:7B97In[16]:= Set::write: 30.0466 {0.0632456,0.997998} 中的标签 Times 被保护.
+\:6B63\:5728\:8BA1\:7B97In[16]:= General::stop: 在本次计算中，Set::write 的进一步输出将被抑制.

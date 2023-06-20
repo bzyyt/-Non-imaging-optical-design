@@ -1,0 +1,7 @@
+r = 20;(*菲涅尔透镜的半径*)
+R1[i_]= 100i;
+dx = 0.01;
+b = Table[{x,Sqrt[R1[i]^2-x^2]-Sqrt[R1[i]^2-(r/5*i)^2],0},{i,1,5},{x,r/5*(i-1),r/5*i,dx}];
+(*生成每个圆弧的点*)
+Export[NotebookDirectory[]<>"Fresnel.txt","Table"];
+

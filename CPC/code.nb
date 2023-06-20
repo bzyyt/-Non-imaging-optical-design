@@ -1,0 +1,150 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4542,        142]
+NotebookOptionsPosition[      4174,        127]
+NotebookOutlinePosition[      4588,        144]
+CellTagsIndexPosition[      4545,        141]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"px", " ", "=", " ", 
+    RowBox[{"-", "60"}]}], ";", 
+   RowBox[{"py", " ", "=", " ", "120"}], ";"}], 
+  RowBox[{"(*", "\:5b9a\:70b9", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"fx", " ", "=", " ", "47"}], ";", 
+   RowBox[{"fy", " ", "=", " ", "0"}], ";"}], 
+  RowBox[{"(*", "\:7126\:70b9", "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"alpha", "=", 
+    RowBox[{
+     RowBox[{"40", "/", "180"}], "*", "Pi"}]}], ";"}], 
+  RowBox[{
+  "(*", "\:629b\:7269\:7ebf\:5f00\:53e3\:65b9\:5411", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"phi1", " ", "=", 
+    RowBox[{
+     RowBox[{"1", 
+      RowBox[{"Pi", "/", "3"}]}], "+", 
+     RowBox[{"0.005", "*", "110"}]}]}], ";", 
+   RowBox[{"phi2", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"2", 
+      RowBox[{"Pi", "/", "3"}]}], "+", 
+     RowBox[{"0.005", "*", "70"}]}]}], ";", 
+   RowBox[{"d", " ", "=", " ", "0.005"}], ";"}], 
+  RowBox[{
+  "(*", "\:751f\:6210\:89d2\:5ea6\:8303\:56f4", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"f", "[", "phi_", "]"}], ":=", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Sqrt", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"px", "-", "fx"}], ")"}], "^", "2"}], "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"py", "-", "fy"}], ")"}], "^", "2"}]}], "]"}], "-", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"px", "-", "fx"}], ")"}], "*", 
+          RowBox[{"Cos", "[", "alpha", "]"}]}], "+", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{"py", "-", "fy"}], ")"}], "*", 
+          RowBox[{"Sin", "[", "alpha", "]"}]}]}], ")"}]}], ")"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"1", "-", 
+       RowBox[{"Cos", "[", "phi", "]"}]}], ")"}]}]}], ";"}], 
+  RowBox[{
+  "(*", "\:751f\:6210\:629b\:7269\:7ebf\:7684\:51fd\:6570", 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"point", " ", "=", " ", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", "phi", "]"}], "*", 
+          RowBox[{"Cos", "[", 
+           RowBox[{"phi", "+", "alpha"}], "]"}]}], "+", "fx"}], ")"}], ",", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"f", "[", "phi", "]"}], "*", 
+          RowBox[{"Sin", "[", 
+           RowBox[{"phi", "+", "alpha"}], "]"}]}], "+", "fy"}], ")"}], ",", 
+       "0"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"phi", ",", "phi1", ",", "phi2", ",", "d"}], "}"}]}], "]"}]}], 
+  ";", 
+  RowBox[{"(*", "\:751f\:6210CPC\:7684\:70b9", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<\:629b\:7269\:7ebf.txt\>\""}], ",", "point", ",", "\"\<Table\>\""}],
+    "]"}], ";", 
+  RowBox[{"(*", "\:5bfc\:51fa", "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.892263843889635*^9, 3.892263853232792*^9}, {
+   3.89226509285468*^9, 3.8922650975309486`*^9}, {3.892265204587949*^9, 
+   3.892265207199397*^9}, 3.8922658007659545`*^9, 3.8922663439254313`*^9, 
+   3.892266939356105*^9, {3.892267133694813*^9, 3.89226713403856*^9}, 
+   3.892268967064088*^9, 3.892269328900633*^9, 3.8922699063833094`*^9, 
+   3.8922715225231028`*^9, 3.892283795501009*^9, {3.896236475227546*^9, 
+   3.896236541669397*^9}, {3.8962366491985583`*^9, 
+   3.8962366887130547`*^9}},ExpressionUUID->"220ede19-aaa6-4c60-93fc-\
+1f95e6362310"]
+},
+WindowSize->{1140.6, 568.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"12.2 for Microsoft Windows (64-bit) (2021\:5e742\:67085\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"9691eabd-8e3e-47c1-9ee3-4c92e95c9e03"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3612, 105, 252, "Input",ExpressionUUID->"220ede19-aaa6-4c60-93fc-1f95e6362310"]
+}
+]
+*)
+

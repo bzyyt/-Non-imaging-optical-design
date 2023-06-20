@@ -1,0 +1,7 @@
+px = -60;py = 120;(*定点*)
+fx = 47;fy = 0;(*焦点*)
+alpha=40/180*Pi;(*抛物线开口方向*)
+phi1 =1Pi/3+0.005*110;phi2 = 2Pi/3+0.005*70;d = 0.005;(*生成角度范围*)
+f[phi_]:=(Sqrt[(px-fx)^2+(py-fy)^2]-((px-fx)*Cos[alpha]+(py-fy)*Sin[alpha]))/(1-Cos[phi]);(*生成抛物线的函数*)
+point = Table[{(f[phi]*Cos[phi+alpha]+fx),(f[phi]*Sin[phi+alpha]+fy),0},{phi,phi1,phi2,d}];(*生成CPC的点*)
+Export[NotebookDirectory[]<>"抛物线.txt",point,"Table"];(*导出*)
