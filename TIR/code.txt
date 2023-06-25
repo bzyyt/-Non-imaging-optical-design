@@ -1,0 +1,46 @@
+(*初始化部分*)
+(*尺寸大小*)
+thetaBoundary = Pi/2 - 0.472;(*分界角，大于此角的光线经过折射射出，小于的经过反射射出*)
+h = 11; R = 11; rHorizontal = 0.5;
+(*折射率*)
+nAir = 1; nGlass = 1.49386;
+(*中心折射面圆的半径*)
+k = Solve[r*Tan[thetaBoundary] + (R - r)*Tan[ArcSin[(nAir*Sin[thetaBoundary])/nGlass]] == h, r];
+(*从直表面射出的光线可以到达TIS面的边缘*)
+r1 = r /. k[[1]]; r2 = r1 + rHorizontal; r3 = R;
+(*迭代参数即不同表面的点的数量*)
+numTIR = 1000; numCenter = 1000; numSide = 100; numUnder =  10;
+
+
+(*内直表面的设计*)
+hSide = Tan[thetaBoundary]*r1;(*侧直表面的高度*)
+pointSide = Table[{r1,heigh,0},{heigh,0,hSide,hSide/numSide}];(*生成直表面的点*)
+
+(*底面的生成*)
+pointUnder = Table[{N[x],0,0},{x,r1+(r2-r1)/numUnder,r2-(r2-r1)/numUnder,(r2-r1)/numUnder}];
+
+(*TIR面的生成*)
+AlphaTIR[anglex_]:=ArcSin[(nAir*Sin[anglex])/nGlass];(*生成从内表面出射的折射角的函数*)
+pointTIR = {};(*TIR面的点集*)
+pointLast={r2,0};(*上一个点的位置*)
+thetaLast =  Pi/4;
+Function[gama,
+alphaTIR = AlphaTIR[gama];
+k=Solve[{r1,r1*Tan[gama]}+t1*AngleVector[alphaTIR]==pointLast+t2*AngleVector[thetaLast],{t1,t2}];
+pointLast = (t1/.k[[1]][[1]])*AngleVector[alphaTIR]+{r1,r1*Tan[gama]};
+thetaLast = Pi/4+alphaTIR/2;
+AppendTo[pointTIR,pointLast~Join~{0}];]/@Subdivide[thetaBoundary /numTIR,thetaBoundary ,numTIR-1];
+
+(*中心内表面的生成*)
+AlphaCenter[theta_]:=ArcTan[(nAir*Sin[theta])/(nGlass-nAir*Cos[theta])];
+pointCenter = {};
+pointLast = {r1,hSide};
+Function[xtoCenter ,
+thetaLast = VectorAngle[pointLast,{0,1}];
+alphaLast=AlphaCenter[thetaLast];
+pointLast = N[pointLast-{r1/numCenter,Tan[alphaLast]*r1/numCenter}];
+AppendTo[pointCenter,pointLast~Join~{0}];]/@Range[r1,r1/numCenter,-r1/numCenter];
+
+(*导出*)
+pointOut = Reverse[pointCenter]~Join~Reverse[pointSide]~Join~pointUnder~Join~pointTIR;
+Export[NotebookDirectory[]<>"1.txt",pointOut,"Table"];
